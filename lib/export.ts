@@ -1,5 +1,5 @@
 // lib/export.ts
-import { Document, Packer, Paragraph, HeadingLevel, AlignmentType, Table, TableRow, TableCell, WidthType } from 'docx'
+import { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType, Table, TableRow, TableCell, WidthType } from 'docx'
 import { saveAs } from 'file-saver'
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
@@ -24,11 +24,18 @@ export async function exportMaintenanceToWord(record: MaintenanceWithDetails) {
           text: `Collector: ${record.collector_name}`,
         }),
         new Paragraph({
-          text: `Grand Total: ${formatCurrency(record.grand_total)}`,
-          bold: true,
+          children: [
+            new TextRun({
+              text: `Grand Total: ${formatCurrency(record.grand_total)}`,
+              bold: true,
+            })
+          ],
         }),
         new Paragraph({
-          text: "\nTenant Payments:",
+          text: "",
+        }),
+        new Paragraph({
+          text: "Tenant Payments:",
           heading: HeadingLevel.HEADING_2,
         }),
         ...record.tenant_payments.map(tp => 
@@ -37,7 +44,10 @@ export async function exportMaintenanceToWord(record: MaintenanceWithDetails) {
           })
         ),
         new Paragraph({
-          text: "\nExpense Particulars:",
+          text: "",
+        }),
+        new Paragraph({
+          text: "Expense Particulars:",
           heading: HeadingLevel.HEADING_2,
         }),
         ...record.particulars.map(p => 
