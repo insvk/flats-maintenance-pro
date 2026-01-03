@@ -13,6 +13,7 @@ export interface Tenant {
   phone: string
   email: string
   status: 'active' | 'inactive'
+  type?: 'tenant' | 'owner'  // ← ADDED THIS LINE FOR UNLIMITED OWNERS!
   created_at: string
   updated_at: string
 }
