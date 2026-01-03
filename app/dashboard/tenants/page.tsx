@@ -14,7 +14,7 @@ export default function TenantsPage() {
   const [showModal, setShowModal] = useState(false)
   const [showAccountModal, setShowAccountModal] = useState(false)
   const [selectedTenant, setSelectedTenant] = useState<any>(null)
-  const [formData, setFormData] = useState({ name: '', phone: '', email: '', status: 'active' })
+  const [formData, setFormData] = useState({ name: '', phone: '', email: '', status: 'active' as 'active' | 'inactive' })
   const [accountData, setAccountData] = useState({ password: '', confirmPassword: '' })
 
   function handleAdd() {
@@ -213,7 +213,7 @@ export default function TenantsPage() {
                     <label className="label">Status</label>
                     <select 
                       value={formData.status}
-                      onChange={(e) => setFormData({...formData, status: e.target.value as any})}
+                      onChange={(e) => setFormData({...formData, status: e.target.value as 'active' | 'inactive'})}
                       className="input-field"
                     >
                       <option value="active">Active</option>
